@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>My Vaults</h2>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newVaultModal">
+            <i class="fas fa-plus"></i> New Vault
+        </button>
+    </div>
+
+    <div class="row">
+        {% for vault in vaults %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-folder"></i> {{ vault.name }}
+                    </h5>
+                    <p class="card-text">
+                        {{ vault.entries|length }} entries
+                    </p>
+                    <a href="{{ url_for('view_vault', vault_id=vault.id) }}" class="btn btn-outline-primary">
+                        <i class="fas fa-folder-open"></i> Open Vault
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> You haven't created any vaults yet. Create your first vault to get started!
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- New Vault Modal -->
+<div class="modal fade" id="newVaultModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create New Vault</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ url_for('create_vault') }}">
+                    <div class="mb-3">
+                        <label for="vault_name" class="form-label">Vault Name</label>
+                        <input type="text" class="form-control" id="vault_name" name="vault_name" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Create Vault
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

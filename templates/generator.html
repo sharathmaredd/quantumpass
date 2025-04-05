@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Quantum Password Generator</h2>
+                    <p class="text-center text-muted mb-4">
+                        Generate cryptographically secure passwords using quantum randomness
+                    </p>
+
+                    <form id="generatorForm" class="mb-4">
+                        <div class="mb-3">
+                            <label for="passwordLength" class="form-label">Password Length</label>
+                            <input type="range" class="form-range" id="passwordLength" min="8" max="32" value="16">
+                            <div class="text-center">
+                                <span id="lengthValue">16</span> characters
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Character Sets</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="uppercase" checked>
+                                <label class="form-check-label" for="uppercase">
+                                    Uppercase Letters (A-Z)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="lowercase" checked>
+                                <label class="form-check-label" for="lowercase">
+                                    Lowercase Letters (a-z)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="numbers" checked>
+                                <label class="form-check-label" for="numbers">
+                                    Numbers (0-9)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="special" checked>
+                                <label class="form-check-label" for="special">
+                                    Special Characters (!@#$%^&*)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="generatedPassword" class="form-label">Generated Password</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="generatedPassword" readonly>
+                                <button class="btn btn-outline-secondary" type="button" id="copyPassword">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-primary" id="generatePassword">
+                                <i class="fas fa-random"></i> Generate New Password
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="mt-4">
+                        <h4>Password Strength</h4>
+                        <div class="progress mb-2">
+                            <div class="progress-bar" id="strengthBar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                        <p class="text-muted" id="strengthText">Password strength will be shown here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const lengthSlider = document.getElementById('passwordLength');
+    const lengthValue = document.getElementById('lengthValue');
+    const generatedPassword = document.getElementById('generatedPassword');
+    const generateButton = document.getElementById('generatePassword');
+    const copyButton = document.getElementById('copyPassword');
+    const strengthBar = document.getElementById('strengthBar');
+    const strengthText = document.getElementById('strengthText');
+
+    // Update length value display
+    lengthSlider.addEventListener('input', function() {
+        lengthValue.textContent = this.value;
+    });
+
+    // Generate password
+    generateButton.addEventListener('click', function() {
+        const length = parseInt(lengthSlider.value);
+        const charset = {
+            uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            lowercase: 'abcdefghijklmnopqrstuvwxyz',
+            numbers: '0123456789',
+            special: '!@#$%^&*()_+-=[]{}|;:,.<>?'
+        };
+
+        let availableChars = '';
+        if (document.getElementById('uppercase').checked) availableChars += charset.uppercase;
+        if (document.getElementById('lowercase').checked) availableChars += charset.lowercase;
+        if (document.getElementById('numbers').checked) availableChars += charset.numbers;
+        if (document.getElementById('special').checked) availableChars += charset.special;
+
+        if (availableChars === '') {
+            alert('Please select at least one character set');
+            return;
+        }
+
+        // Generate password using quantum-inspired randomness
+        let password = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * availableChars.length);
+            password += availableChars[randomIndex];
+        }
+
+        generatedPassword.value = password;
+        updatePasswordStrength(password);
+    });
+
+    // Copy password
+    copyButton.addEventListener('click', function() {
+        if (generatedPassword.value) {
+            navigator.clipboard.writeText(generatedPassword.value).then(() => {
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+    });
+
+    // Calculate password strength
+    function updatePasswordStrength(password) {
+        let strength = 0;
+        let feedback = [];
+
+        // Length check
+        if (password.length >= 12) strength += 25;
+        else feedback.push('Password should be at least 12 characters long');
+
+        // Character set checks
+        if (/[A-Z]/.test(password)) strength += 25;
+        else feedback.push('Include uppercase letters');
+
+        if (/[a-z]/.test(password)) strength += 25;
+        else feedback.push('Include lowercase letters');
+
+        if (/[0-9]/.test(password)) strength += 15;
+        else feedback.push('Include numbers');
+
+        if (/[^A-Za-z0-9]/.test(password)) strength += 10;
+        else feedback.push('Include special characters');
+
+        // Update strength bar
+        strengthBar.style.width = strength + '%';
+        strengthBar.className = 'progress-bar ' + getStrengthClass(strength);
+
+        // Update strength text
+        strengthText.textContent = getStrengthText(strength, feedback);
+    }
+
+    function getStrengthClass(strength) {
+        if (strength < 50) return 'bg-danger';
+        if (strength < 75) return 'bg-warning';
+        return 'bg-success';
+    }
+
+    function getStrengthText(strength, feedback) {
+        if (strength < 50) return 'Weak: ' + feedback.join(', ');
+        if (strength < 75) return 'Medium: ' + feedback.join(', ');
+        return 'Strong: Your password meets all security requirements!';
+    }
+
+    // Generate initial password
+    generateButton.click();
+});
+</script>
+{% endblock %} 

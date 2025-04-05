@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="landing-page">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="display-3 fw-bold mb-4">Welcome to Quantum Pass</h1>
+            <p class="lead mb-5">Secure your digital life with quantum-inspired encryption</p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg me-3">Get Started</a>
+                <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-lg">Sign In</a>
+            </div>
+        </div>
+        <div class="hero-3d">
+            <div class="quantum-sphere">
+                <div class="sphere-container">
+                    <div class="sphere"></div>
+                    <div class="orbit orbit-1"></div>
+                    <div class="orbit orbit-2"></div>
+                    <div class="orbit orbit-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-section">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>Quantum Security</h3>
+            <p>Advanced encryption inspired by quantum mechanics</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-key"></i>
+            </div>
+            <h3>Secure Vaults</h3>
+            <p>Organize your passwords in encrypted vaults</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-sync"></i>
+            </div>
+            <h3>Auto Sync</h3>
+            <p>Seamless synchronization across devices</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .landing-page {
+        min-height: 100vh;
+        background: #ffffff;
+        color: #333333;
+        padding: 2rem 0;
+    }
+
+    .hero-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .hero-content {
+        flex: 1;
+        padding-right: 4rem;
+    }
+
+    .hero-3d {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .quantum-sphere {
+        position: relative;
+        width: 400px;
+        height: 400px;
+    }
+
+    .sphere-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        animation: rotate 20s linear infinite;
+    }
+
+    .sphere {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle at 30% 30%, #A4123F, #2c3e50);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 50px rgba(164, 18, 63, 0.5);
+    }
+
+    .orbit {
+        position: absolute;
+        border: 2px solid rgba(164, 18, 63, 0.2);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .orbit-1 {
+        width: 300px;
+        height: 300px;
+        animation: orbit-rotate 10s linear infinite;
+    }
+
+    .orbit-2 {
+        width: 350px;
+        height: 350px;
+        animation: orbit-rotate 15s linear infinite reverse;
+    }
+
+    .orbit-3 {
+        width: 400px;
+        height: 400px;
+        animation: orbit-rotate 20s linear infinite;
+    }
+
+    .features-section {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        padding: 4rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .feature-card {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        transition: transform 0.3s ease;
+        flex: 1;
+        max-width: 300px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        color: #A4123F;
+        margin-bottom: 1rem;
+    }
+
+    .cta-buttons {
+        margin-top: 2rem;
+    }
+
+    .btn-primary {
+        background-color: #A4123F;
+        border-color: #A4123F;
+    }
+
+    .btn-outline-primary {
+        color: #A4123F;
+        border-color: #A4123F;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #A4123F;
+        color: #ffffff;
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotateY(0deg) rotateX(0deg);
+        }
+        to {
+            transform: rotateY(360deg) rotateX(360deg);
+        }
+    }
+
+    @keyframes orbit-rotate {
+        from {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+        to {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            flex-direction: column;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .hero-content {
+            padding-right: 0;
+            margin-bottom: 2rem;
+        }
+
+        .quantum-sphere {
+            width: 300px;
+            height: 300px;
+        }
+
+        .features-section {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-card {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %} 
