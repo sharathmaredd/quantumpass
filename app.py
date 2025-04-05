@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 import sqlite3
 import numpy as np
 from qiskit import QuantumCircuit
-from quantum_circuit import run_quantum_verification
+from quantum_encryption import run_quantum_verification
 
 # Load environment variables from .env file
 load_dotenv()
