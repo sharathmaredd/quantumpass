@@ -65,11 +65,8 @@ http://localhost:5000
 
 ## Security Features
 
-- Passwords are encrypted using Fernet (symmetric encryption)
-- Quantum-inspired random number generation for password creation
-- Two-factor authentication support
+- Passwords are encrypted using Quantum Circuits
 - Secure session management
-- Password strength analysis
 - Automatic password generation with customizable options
 
 ## Contributing
@@ -86,4 +83,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - SQLite database
 - Bootstrap for the frontend design
 - Font Awesome for icons
-- Qiskit for quantum computing inspiration
+- Qiskit for quantum computing
