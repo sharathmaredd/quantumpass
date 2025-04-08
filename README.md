@@ -1,77 +1,112 @@
-# Quantum Password Manager
+# QuantumPass - Quantum-Enhanced Password Manager
 
-A secure password manager built with Flask and SQLite, featuring quantum-inspired password generation and secure vault management.
+![QuantumPass Poster](a3%20poster.jpg)
+
+## Overview
+
+QuantumPass is a cutting-edge password manager that combines classical encryption with quantum computing verification. It leverages Amazon's SV1 quantum simulator to provide an additional layer of security through quantum verification of stored passwords.
 
 ## Features
 
-- 🔐 Secure password vault management
-- 🔑 Quantum-inspired password generation
-- 👤 User authentication and account management
-- ⚙️ Customizable security settings
-- 📱 Responsive design for all devices
-- 🔒 Two-factor authentication support
-- 📧 Email notifications
+- 🔐 **Classical Encryption**: Secure password storage using Fernet encryption
+- 🌌 **Quantum Verification**: Password verification using Amazon's SV1 quantum simulator
+- ☁️ **Cloud Storage**: Secure storage in AWS S3
+- 🔑 **Vault Management**: Create and manage multiple password vaults
+- 🔒 **Session Management**: Secure user authentication and session handling
+- 🎨 **Modern UI**: Clean and intuitive user interface
+
+## Technology Stack
+
+- **Backend**: Python, Flask
+- **Database**: SQLite
+- **Cloud**: AWS S3, Amazon Braket
+- **Quantum**: Amazon SV1 Simulator
+- **Frontend**: HTML, CSS, JavaScript
 
 ## Prerequisites
 
-- Python 3.8 or higher
-- pip (Python package installer)
+- Python 3.8+
+- AWS Account with:
+  - S3 Bucket
+  - Amazon Braket access
+  - IAM credentials
 
 ## Installation
 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/quantum-password-manager.git
-cd quantum-password-manager
+git clone https://github.com/yourusername/quantum-pass.git
+cd quantum-pass
 ```
 
-2. Create a virtual environment (recommended):
+2. Create and activate virtual environment:
 
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # Linux/Mac
+.\venv\Scripts\activate   # Windows
 ```
 
-3. Install the required packages:
+3. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Initialize the database:
+4. Configure environment variables:
+
+Create a `.env` file with:
+
+```
+AWS_ACCESS_KEY_ID=your_access_key
+AWS_SECRET_ACCESS_KEY=your_secret_key
+AWS_BUCKET_NAME=your_bucket_name
+AWS_REGION=us-east-1
+BRAKET_BUCKET_NAME=your_braket_bucket
+BRAKET_REGION=us-east-1
+```
+
+## Running the Application
+
+1. Start the Flask server:
 
 ```bash
 python app.py
 ```
 
-## Usage
-
-1. Start the Flask development server:
-
-```bash
-python app.py
-```
-
-2. Open your web browser and navigate to:
+2. Open your browser and navigate to:
 
 ```
-http://localhost:5000
+http://127.0.0.1:5000
 ```
-
-3. Create a new account or log in to your existing account.
-
-4. Start managing your passwords securely!
 
 ## Security Features
 
-- Passwords are encrypted using Quantum Circuits
-- Secure session management
-- Automatic password generation with customizable options
+- **Classical Encryption**: Passwords are encrypted using Fernet (symmetric encryption)
+- **Quantum Verification**: Each password is verified using quantum circuits
+- **Secure Storage**: Encrypted passwords are stored in AWS S3
+- **Session Management**: Secure user sessions with proper authentication
+
+## Project Structure
+
+```
+quantum-pass/
+├── app.py                 # Main Flask application
+├── quantum_encryption.py  # Quantum verification logic
+├── requirements.txt       # Python dependencies
+├── templates/            # HTML templates
+├── static/              # Static assets
+└── .env                 # Environment variables
+```
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
@@ -79,8 +114,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- Flask web framework
-- SQLite database
-- Bootstrap for the frontend design
-- Font Awesome for icons
-- Qiskit for quantum computing
+- Amazon Web Services for S3 and Braket services
+- Flask framework
+- Quantum computing community
+
+## Contact
+
+Your Name - [@yourtwitter](https://twitter.com/yourtwitter)
+
+Project Link: [https://github.com/yourusername/quantum-pass](https://github.com/yourusername/quantum-pass)
